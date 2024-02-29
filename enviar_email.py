@@ -4,51 +4,14 @@ import pandas as pd
 outlook = win32.Dispatch('outlook.application')
 caminho_tabela = "emails.xlsx"
 
-# turma = "teste"
-# turma = "primeiro_ano"
-# turma = "oitavo_ano_A_prata"
-# turma = "oitavo_ano_B_prata"
-turma = "nono_ano_A_prata"
-# turma = "nono_ano_B_prata"
-# turma = "oitavo_ano_guarani"
-# turma = "nono_ano_guarani"
-tabela = pd.read_excel(caminho_tabela, sheet_name=turma)
+aba_planilha = "planilha 1"
+tabela_lida = pd.read_excel(caminho_tabela, sheet_name=aba)
 
-primeiro_ano = "http://scratch.mit.edu/signup/n25yd5n3n"
-oitavo_ano_A_prata = "http://scratch.mit.edu/signup/m4kenv8rf"
-oitavo_ano_B_prata = "http://scratch.mit.edu/signup/vh8h3pchc"
-nono_ano_A_prata = "http://scratch.mit.edu/signup/yy4w9hftc"
-nono_ano_B_prata = "http://scratch.mit.edu/signup/39yytt489"
-oitavo_ano_guarani = "http://scratch.mit.edu/signup/33m3fwexv"
-nono_ano_guarani = "http://scratch.mit.edu/signup/pfc5mdr5d"
+objeto_busca = {
+    "planilha 1": "http://link_a_ser_enviado",
+}
 
-if turma == "oitavo_ano_A_prata":
-    link_scratch = nono_ano_A_prata
-elif turma == "oitavo_ano_B_prata":
-    link_scratch = oitavo_ano_B_prata
-elif turma == "oitavo_ano_ano_guarani":
-    link_scratch = oitavo_ano_guarani
-elif turma == "nono_ano_A_prata":
-    link_scratch = nono_ano_A_prata
-elif turma == "nono_ano_B_prata":
-    link_scratch = nono_ano_B_prata
-elif turma == "nono_ano_guarani":
-    link_scratch = nono_ano_guarani
-elif turma == "primeiro_ano":
-    link_scratch = primeiro_ano
-else:
-    link_scratch = primeiro_ano
-
-
-
-
-
-# nome_arquivo = "foto.jpg"
-# caminho_foto = os.path.abspath(nome_arquivo)
-
-# # Anexando a foto
-# attachment = email.Attachments.Add(caminho_foto)
-# attachment.PropertyAccessor.SetProperty("http://schemas.microsoft.com/mapi/proptag/0x3712001E", "foto")
+link_a_enviar = objeto_busca[aba]
 
 # Configurar email
 
@@ -58,14 +21,14 @@ else:
 # list_to_emails = tabela.values.tolist()
 # print(list_to_emails)
 contador = 0
-for indice, linha in tabela.iterrows():
+for indice, linha in tabela_lida.iterrows():
     email = ""
     email = outlook.CreateItem(0)
     print(linha.iloc[0])
     nome = linha.iloc[0]
     print(linha.iloc[1])
     email.To = linha.iloc[1]
-    email.Subject = "Link do Scratch"
+    email.Subject = "Link enviado"
 
     email.HTMLBody = f''''
         <!DOCTYPE html>
@@ -129,7 +92,7 @@ for indice, linha in tabela.iterrows():
                         <p>Pronto(a) para essa jornada no mundo da programação?</p>
                         <br>
                         <br>
-                        <b><a id="pronto" href="{link_scratch}">Acessar Scratch</a></b>
+                        <b><a id="pronto" href="{link_a_enviar}">Acessar Scratch</a></b>
                     </div>
 
                 </div>
